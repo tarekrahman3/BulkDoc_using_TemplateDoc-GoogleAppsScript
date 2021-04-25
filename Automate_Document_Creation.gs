@@ -1,5 +1,5 @@
 /**
- * Developer: Tarek R.
+ * Scripting by Tarek R.
  * Date: 04-22-2021
  * Last Updated: 04-25-2021
  * List of functions with parameters:
