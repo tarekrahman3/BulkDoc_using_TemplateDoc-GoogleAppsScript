@@ -20,6 +20,20 @@ function onOpen(e) {
       .addToUi();
 }
 
+// defininig template file & export folder path 
+function prepareResources(time){
+  // template document id string
+  templateID = '!! TEMPLATE DOCUMENT ID GOES HERE !!';
+  // dynamic folder name for each run
+  FOLDER_NAME = "!! Doc Exports " + time;
+  // create new folder under an already created blank folder
+  newFolder = DriveApp.getFolderById('!! A NEW BLANK FOLDER ID GOES HERE !!').createFolder(FOLDER_NAME);
+  // new folder location url for final alert
+  newFolderLink = 'Folder Liink: \n' + 'https://drive.google.com/drive/folders/' + (newFolder.getId())  + '/';
+  folder = DriveApp.getFolderById(newFolder.getId());
+  return prepareResources;
+}
+
 // building main function
 function main() {
   // current time variable
@@ -50,20 +64,6 @@ function getInputData() {
      });
   }
   return dictList;
-}
-
-// defininig template file & export folder path 
-function prepareResources(time){
-  // template document id string
-  templateID = '1jXkpC-nhAVtDbKI7k1glIshOw1Qx4uUJaAgicz9Ie_g';
-  // dynamic folder name for each run
-  FOLDER_NAME = "Do Exports " + time;
-  // create new folder under an already created blank folder
-  newFolder = DriveApp.getFolderById('1i34BTh21lg_vYr8tu1YpJdfZKTs1YOAJ').createFolder(FOLDER_NAME);
-  // new folder location url for final alert
-  newFolderLink = 'Folder Liink: \n' + 'https://drive.google.com/drive/folders/' + (newFolder.getId())  + '/';
-  folder = DriveApp.getFolderById(newFolder.getId());
-  return prepareResources;
 }
 
 // change the values of newly created document by one using the inputData() dictionary
