@@ -1,6 +1,6 @@
 /**
  * Author: Tarek R.
- * Start Date: 04-22-2021
+ * Date: 04-22-2021
  * Last Updated: 04-25-2021
  * List of functions with parameters:
     * onOpen(e)
@@ -23,13 +23,17 @@ function onOpen(e) {
 // building main function
 function main() {
   // current time variable
-  formattedDate = Utilities.formatDate(new Date(), "GMT"+6, "yyyy-MM-dd'T'HH:mm:ss'Z'");
-  prepareResources(formattedDate)
+  time = Utilities.formatDate(new Date(),"GMT"+6, "yyyy-MM-dd'T'HH:mm:ss'Z'");
+  // gather resources
+  prepareResources(time);
+  // create documents
   array = docCreate();
-  SpreadsheetApp.getActiveSheet()
+  // insert new documents link to the spreadsheet
+   SpreadsheetApp.getActiveSheet()
     .getRange(2,4,array.length,2)
     .setValues(array);
-  SpreadsheetApp.getUi().alert(newFolderLink);
+   // show folder location
+   SpreadsheetApp.getUi().alert(newFolderLink);
 }
 
 // getting addresses from spreadsheet
@@ -38,7 +42,7 @@ function getInputData() {
   var sheet = SpreadsheetApp.getActiveSpreadsheet()
     .getSheetByName('Address List');
   range = sheet.getRange(2,2,(sheet.getLastRow())-1,2).getValues();
-  // coverting input data to dictionary and storing in a list
+  // creating and storing data dictionary into a list
   for(var i=0; i<range.length;i++){
    dictList.push(data = {
      'a':range[i][0],
@@ -49,11 +53,11 @@ function getInputData() {
 }
 
 // defininig template file & export folder path 
-function prepareResources(formattedDate){
+function prepareResources(time){
   // template document id string
   templateID = '1jXkpC-nhAVtDbKI7k1glIshOw1Qx4uUJaAgicz9Ie_g';
   // dynamic folder name for each run
-  FOLDER_NAME = "Do Exports " + formattedDate;
+  FOLDER_NAME = "Do Exports " + time;
   // create new folder under an already created blank folder
   newFolder = DriveApp.getFolderById('1i34BTh21lg_vYr8tu1YpJdfZKTs1YOAJ').createFolder(FOLDER_NAME);
   // new folder location url for final alert
@@ -87,7 +91,7 @@ function docCreate(){
       address_1stLine=(addressDictionary[n].a),
       address_2ndLine=(addressDictionary[n].b));
     // creating strings for newly modifiied document location url & export as pdf url
-    newDocId = newDoc.getId()
+    newDocId = newDoc.getId();
     new_docs_url_list.push(
       ['https://docs.google.com/document/d/' + newDocId,
       'https://docs.google.com/document/d/' + newDocId + '/export?format=pdf']);
